@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  django_gunicorn:
+    volumes:
+      - static:/static
+    env_file:
+      - .env
+    build: 
+      context: .
+    ports:
+      - "8050:8050"
+
+    nginx:
+      build: ./nginx
+      volumes:
+        - static:/static
+
+volumes:
+  static:

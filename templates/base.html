@@ -1,0 +1,389 @@
+{% load static %}
+{% load tz %}
+{% comment %} {% load i18n %}
+{% load humanize %} {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from demo.dashboardpack.com/cryptocurrency-html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 27 Oct 2023 17:04:57 GMT -->
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>TRIUMF EXPRESS POST</title>
+    <link rel="icon" href="{% static 'favicon/favicon-32x32.png' %}" type="image/png">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap1.min.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'vendors/themefy_icon/themify-icons.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'vendors/niceselect/css/nice-select.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'vendors/owl_carousel/css/owl.carousel.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'vendors/gijgo/gijgo.min.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'vendors/tagsinput/tagsinput.css' %}"/>
+    <link rel="stylesheet" href="{% static 'vendors/font_awesome/css/all.min.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'vendors/datepicker/date-picker.css' %}"/>
+    <link rel="stylesheet" href="{% static 'vendors/vectormap-home/vectormap-2.0.2.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'vendors/scroll/scrollable.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'vendors/datatable/css/jquery.dataTables.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'vendors/datatable/css/responsive.dataTables.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'vendors/datatable/css/buttons.dataTables.min.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'vendors/text_editor/summernote-bs4.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'vendors/morris/morris.css' %}">
+
+    <link rel="stylesheet" href="{% static 'vendors/material_icon/material-icons.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'css/metisMenu.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/colors/default.css' %}" id="colorSkinCSS">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body class="crm_body_bg">
+
+
+<nav class="sidebar dark_sidebar">
+    <div class="logo d-flex justify-content-between">
+        <a class="large_logo" href="{% url 'index' %}"><img src="{% static 'favicon/new_owl.svg' %}" alt></a>
+        <a class="small_logo" href="{% url 'index' %}"><img src="{% static 'favicon/owl-icon.png' %}" alt></a>
+        <div class="sidebar_close_icon d-lg-none">
+            <i class="ti-close"></i>
+        </div>
+    </div>
+    <ul id="sidebar_menu">
+        <li class>
+            <a class="" href="{% url 'index' %}" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="{% static 'img/menu-icon/1.svg' %}" alt>
+                </div>
+                <div class="nav_title">
+                    <span>Dashboard </span>
+                </div>
+            </a>
+        </li>
+            <!-- <li class>
+                <a href="dashboard/index.html" aria-expanded="false">
+                    <div class="nav_icon_small">
+                        <img src="{% static 'img/menu-icon/2.svg' %}" alt>
+                    </div>
+                    <div class="nav_title">
+                        <span>To'lov</span>
+                    </div>
+                </a>
+            </li> -->
+        <li class>
+            <a href="{% url 'archives' %}" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="{% static 'img/menu-icon/Mail_Box.svg' %}" alt>
+                </div>
+                <div class="nav_title">
+                    <span>Arxiv</span>
+                </div>
+            </a>
+        </li>
+        <li class>
+            <a href="{% url 'profile' %}" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="{% static 'img/menu-icon/4.svg' %}" alt>
+                </div>
+                <div class="nav_title">
+                    <span>Profile</span>
+                </div>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<section class="main_content dashboard_part large_header_bg">
+    <div class="container-fluid g-0">
+        <div class="row">
+            <div class="col-lg-12 p-0">
+                <div class="header_iner d-flex justify-content-between align-items-center">
+                    <div class="sidebar_icon d-lg-none">
+                        <i class="ti-menu"></i>
+                    </div>
+                    <div class="line_icon open_miniSide d-none d-lg-block">
+                        <img src="{% static '' %}img/line_img.png" alt/>
+                    </div>
+                    <div class="header_right d-flex justify-content-between align-items-center">
+                        <div class="header_notification_warp d-flex align-items-center">
+                            <li>
+                                <a class="CHATBOX_open nav-link-notify" href="#"><img
+                                        src="{% static 'img/icon/msg.svg' %}" alt/></a>
+                            </li>
+                            <li>
+                                <a class="bell_notification_clicker nav-link-notify" href="#"><img
+                                        src="{% static 'img/icon/bell.svg' %}" alt/></a>
+
+{#                                <div class="Menu_NOtification_Wrap">#}
+{#                                    <div class="notification_Header">#}
+{#                                        <h4>Notifications</h4>#}
+{#                                    </div>#}
+{#                                    <div class="Notification_body">#}
+{#                                        <div class="single_notify d-flex align-items-center">#}
+{#                                            <div class="notify_thumb">#}
+{#                                                <a href="#"><img src="{% static 'img/staf/2.png' %}" alt/></a>#}
+{#                                            </div>#}
+{#                                            <div class="notify_content">#}
+{#                                                <a href="#"><h5>Cool Marketing</h5></a>#}
+{#                                                <p>Lorem ipsum dolor sit amet</p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{##}
+{#                                        <div class="single_notify d-flex align-items-center">#}
+{#                                            <div class="notify_thumb">#}
+{#                                                <a href="#"><img src="{% static 'img/staf/4.png' %}" alt/></a>#}
+{#                                            </div>#}
+{#                                            <div class="notify_content">#}
+{#                                                <a href="#"><h5>Awesome packages</h5></a>#}
+{#                                                <p>Lorem ipsum dolor sit amet</p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{##}
+{#                                        <div class="single_notify d-flex align-items-center">#}
+{#                                            <div class="notify_thumb">#}
+{#                                                <a href="#"><img src="{% static 'img/staf/3.png' %}" alt/></a>#}
+{#                                            </div>#}
+{#                                            <div class="notify_content">#}
+{#                                                <a href="#"><h5>what a packages</h5></a>#}
+{#                                                <p>Lorem ipsum dolor sit amet</p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{##}
+{#                                        <div class="single_notify d-flex align-items-center">#}
+{#                                            <div class="notify_thumb">#}
+{#                                                <a href="#"><img src="{% static 'img/staf/2.png' %}" alt/></a>#}
+{#                                            </div>#}
+{#                                            <div class="notify_content">#}
+{#                                                <a href="#"><h5>Cool Marketing</h5></a>#}
+{#                                                <p>Lorem ipsum dolor sit amet</p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{##}
+{#                                        <div class="single_notify d-flex align-items-center">#}
+{#                                            <div class="notify_thumb">#}
+{#                                                {% if organization.icon %}#}
+{#                                                    <a href="#"><img src="{{ organization.icon.url }}" alt/></a>#}
+{#                                                {% else %}#}
+{#                                                    <a href="#"><img src="{% static 'img/user.jpg' %}" alt/></a>#}
+{#                                                {% endif %}#}
+{#                                            </div>#}
+{#                                            <div class="notify_content">#}
+{#                                                <a href="#"><h5>Awesome packages</h5></a>#}
+{#                                                <p>Lorem ipsum dolor sit amet</p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{##}
+{#                                        <div class="single_notify d-flex align-items-center">#}
+{#                                            <div class="notify_thumb">#}
+{#                                                <a href="#"><img src="{% static 'img/staf/3.png' %}" alt/></a>#}
+{#                                            </div>#}
+{#                                            <div class="notify_content">#}
+{#                                                <a href="#"><h5>what a packages</h5></a>#}
+{#                                                <p>Lorem ipsum dolor sit amet</p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="nofity_footer">#}
+{#                                        <div class="submit_button text-center pt_20">#}
+{#                                            <a href="#" class="btn_1 green">See More</a>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+                            </li>
+                        </div>
+                        <div class="profile_info d-flex align-items-center">
+                            <div class="profile_thumb mr_20">
+                                {% if organization.icon %}
+                                    <a href="#"><img src="{{ organization.icon.url }}"  alt="#" height="100" width="100"/></a>
+                                {% else %}
+                                    <a href="#"><img src="{% static 'img/user.jpg' %}"  alt="#" height="100" width="100"/></a>
+                                {% endif %}
+                            </div>
+                            <div class="author_name">
+                                <h4 class="f_s_15 f_w_500 mb-0">
+                                    {% if user.is_authenticated %}
+                                        {% if organization.name %}{{ organization.name }}
+                                        {% else %}{{ request.user }}{% endif %}</h4>
+                                        <p class="f_s_12 f_w_400">{{ organization.user.role }}</p>
+                                    {% endif %}
+                            </div>
+                            <div class="profile_info_iner">
+                                <div class="profile_author_name">
+                                    {% if user.is_authenticated %}
+                                        <p>{{ organization.user.role }}</p>
+                                        <h5>{% if organization.name %}{{ organization.name }}
+                                        {% else %}{{ request.user }}{% endif %}</h5>
+                                    {% endif %}
+                                </div>
+                                <div class="profile_info_details">
+                                    <a href="{% url 'profile' %}">My Profile</a>
+                                    {#                                    <a href="#">Settings</a>#}
+                                    <a href="{% url 'logout' %}">Log Out</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if last_debtor %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Diqqat!</strong> Sizda xat junatish uchun qazdorlik mavjud. Ogoxlantiramiz tulovni amalga oshiring! Qarizdorlik: {{ last_debtor.amount }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    <div class="footer_part">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer_iner text-center">
+                        <p>
+                            2023 © TRIUMF EXPRESS POST. All Rights Reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="back-top" style="display: none;">
+    <a title="Go to Top" href="#">
+        <i class="ti-angle-up"></i>
+    </a>
+</div>
+
+{% block script %}
+
+{% endblock %}
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> -->
+
+<!-- <script src="{% static 'js/sreenshot.js' %}"></script> -->
+
+<script src="{% static 'js/jquery1-3.4.1.min.js' %}"></script>
+
+<script src="{% static 'js/popper1.min.js' %}"></script>
+
+<script src="{% static 'js/bootstrap1.min.js' %}"></script>
+
+<script src="{% static 'js/metisMenu.js' %}"></script>
+
+<script src="{% static 'vendors/count_up/jquery.waypoints.min.js' %}"></script>
+
+<script src="{% static 'vendors/chartlist/Chart.min.js' %}"></script>
+
+<script src="{% static 'vendors/count_up/jquery.counterup.min.js' %}"></script>
+
+<script src="{% static 'vendors/niceselect/js/jquery.nice-select.min.js' %}"></script>
+
+<script src="{% static 'vendors/owl_carousel/js/owl.carousel.min.js' %}"></script>
+
+<script src="{% static 'vendors/datatable/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'vendors/datatable/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'vendors/datatable/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'vendors/datatable/js/buttons.flash.min.js' %}"></script>
+<script src="{% static 'vendors/datatable/js/jszip.min.js' %}"></script>
+<script src="{% static 'vendors/datatable/js/pdfmake.min.js' %}"></script>
+<script src="{% static 'vendors/datatable/js/vfs_fonts.js' %}"></script>
+<script src="{% static 'vendors/datatable/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'vendors/datatable/js/buttons.print.min.js' %}"></script>
+
+<script src="{% static 'vendors/datepicker/datepicker.js' %}"></script>
+<script src="{% static 'vendors/datepicker/datepicker.en.js' %}"></script>
+<script src="{% static 'vendors/datepicker/datepicker.custom.js' %}"></script>
+<script src="{% static 'js/chart.min.js' %}"></script>
+<script src="{% static 'vendors/chartjs/roundedBar.min.js' %}"></script>
+
+<script src="{% static 'vendors/progressbar/jquery.barfiller.js' %}"></script>
+
+<script src="{% static 'vendors/tagsinput/tagsinput.js' %}"></script>
+
+<script src="{% static 'vendors/text_editor/summernote-bs4.js' %}"></script>
+<script src="{% static 'vendors/am_chart/amcharts.js' %}"></script>
+
+<script src="{% static 'vendors/scroll/perfect-scrollbar.min.js' %}"></script>
+<script src="{% static 'vendors/scroll/scrollable-custom.js' %}"></script>
+
+<script src="{% static 'vendors/vectormap-home/vectormap-2.0.2.min.js' %}"></script>
+<script src="{% static 'vendors/vectormap-home/vectormap-world-mill-en.js' %}"></script>
+
+<script src="{% static 'vendors/apex_chart/apex-chart2.js' %}"></script>
+<script src="{% static 'vendors/apex_chart/apex_dashboard.js' %}"></script>
+
+<script src="{% static 'vendors/chart_am/core.js' %}"></script>
+<script src="{% static 'vendors/chart_am/charts.js' %}"></script>
+<script src="{% static 'vendors/chart_am/animated.js' %}"></script>
+<script src="{% static 'vendors/chart_am/kelly.js' %}"></script>
+<script src="{% static 'vendors/chart_am/chart-custom.js' %}"></script>
+
+<script src="{% static 'js/dashboard_init.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<!-- Include html2canvas library -->
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<!-- Add this script at the end of your HTML body -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Attach a click event listener to the ScreenShot button
+        document.querySelectorAll(".btn-primary").forEach(function (button) {
+            button.addEventListener("click", function () {
+                // Get the parent modal element
+                var modal = button.closest(".modal");
+
+                // Get the modal body element
+                var modalBody = modal.querySelector(".modal-body");
+
+                // Get the letter ID from the modal ID
+                var letterId = modal.id.replace("grid_modal", "");
+
+                // Use html2canvas to capture the modal body and convert it to an image
+                html2canvas(modalBody).then(function (canvas) {
+                    // Convert canvas to a Blob
+                    canvas.toBlob(function (blob) {
+                        // Create a download link for the image
+                        var link = document.createElement("a");
+                        link.href = URL.createObjectURL(blob);
+                        link.download = "screenshot_" + letterId + ".png"; // Customize the filename
+
+                        // Simulate a click on the download link
+                        document.body.appendChild(link);
+                        link.click();
+
+                        // Remove the download link from the document
+                        document.body.removeChild(link);
+                    });
+                });
+            });
+        });
+    });
+</script>
+
+</body>
+
+<!-- Mirrored from demo.dashboardpack.com/cryptocurrency-html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 27 Oct 2023 17:04:57 GMT -->
+
+</html>

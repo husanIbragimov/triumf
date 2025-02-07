@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block upload_buttons %}
+{% endblock %}
+{% block content %}
+    <div class="main_content_iner">
+        <div class="container-fluid p-0 sm_padding_15px">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="white_card card_height_100 mb_30">
+                        <div class="white_card_header">
+                            <div class="box_header m-0">
+                                <div class="main-title">
+                                    <h3 class="m-0">Add Letter</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <form method="post" id="myForm" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <button style="margin-left: 30px" type="submit" class="btn_1 mb-2" id="ajaxButton">
+                                Saqlash
+                            </button>
+                            <div class="white_card_body" id="firstCardBody">
+                                <!-- <div class="input-group mb-3">
+                                    <input type="text" name="receiver_name" class="form-control receiver_name"
+                                           placeholder="Jo'natuvchining ismi" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="phone_number"
+                                           placeholder="Telefon raqam" aria-describedby="basic-addon3">
+                                </div> -->
+                                <div class="input-group mb-3">
+                                    <input type="text" name="name" class="form-control"
+                                           placeholder="Qabul qiluvchinig ismi" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" name="address" class="form-control address"
+                                           placeholder="Qabul qiluvchinig uy manzili" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="file" name="pdf_file" class="form-control pdf_file"
+                                           id="inputGroupFile02" accept=".pdf" required>
+                                </div>
+                                <div class="common_select">
+                                    <select class="nice_Select wide mb_30 w-100" name="parent" required>
+                                        {% for district in districts %}
+                                            <option value="{{ district.id }}">{{ district.address }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row justify-content-end">
+                        <a href="#" onclick="removeLastWhiteCardBody()" class="col-md-1 status_btn cancel_btn"><i
+                                class="fa fa-minus"></i></a>
+                        <a href="#" onclick="addWhiteCardBody()" class="col-md-1 status_btn"><i class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function addWhiteCardBody() {
+            // Clone the first white_card_body
+            var firstCardBody = document.getElementById("firstCardBody");
+            var clonedCardBody = firstCardBody.cloneNode(true);
+
+            // Clear the input values in the cloned card body
+            clearInputValues(clonedCardBody);
+
+            // Append the cloned card body to the form
+            document.getElementById("myForm").appendChild(clonedCardBody);
+        }
+
+        function removeLastWhiteCardBody() {
+            // Get all white_card_body elements
+            var cardBodies = document.getElementsByClassName("white_card_body");
+
+            // Ensure there is at least one white_card_body
+            if (cardBodies.length > 1) {
+                // Remove the last white_card_body
+                cardBodies[cardBodies.length - 1].remove();
+            }
+        }
+
+        function clearInputValues(cardBody) {
+            // Get all input elements in the card body and clear their values
+            var inputElements = cardBody.getElementsByTagName("input");
+            for (var i = 0; i < inputElements.length; i++) {
+                inputElements[i].value = "";
+            }
+
+            // If there are select elements, reset their selected values
+            var selectElements = cardBody.getElementsByTagName("select");
+            for (var i = 0; i < selectElements.length; i++) {
+                selectElements[i].selectedIndex = 0;
+            }
+        }
+    </script>
+{% endblock %}

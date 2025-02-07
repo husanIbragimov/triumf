@@ -1,0 +1,134 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% block content %}
+{{request.GET.region_id}} helll
+<form method="get" class="row w-100">
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label for="select1">Tumanlar</label>
+            <select class="form-control" id="select1" name="region_id">
+                <option value=""></option>
+                {% for region in regions %}
+                    <option {% if region.id == request.GET.region_id %}selected{% endif %} value="{{ region.id }}">{{ region.name }}</option>
+                {% endfor %}
+                
+            </select>
+        </div>
+    </div>
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label for="select1">Kuryerlar</label>
+            <select class="form-control" id="select1" name="courier_id">
+                <option value=""></option>
+                {% for courier in couriers %}
+                    <option {% if courier.id == request.GET.courier_id %}selected{% endif %} value="{{ courier.id }}">{{ courier.full_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label for="select2">Tashkilotlar</label>
+            <select class="form-control" id="select2" name="organization_id">
+                <option value=""></option>
+                {% for organization in organizations %}
+                <option {% if organization.id == request.GET.organization_id %}selected{% endif %} value="{{ organization.id }}">
+                    {{ organization.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label for="select3">Status</label>
+            <select class="form-control" id="select3" name="status">
+                <option value="new">Yangi</option>
+                <option value="process">Jarayonda</option>
+            </select>
+        </div>
+    </div>
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label for="search">Qidiruv</label>
+            <input type="search" class="form-control" name="search" id="search" placeholder="Qidiruv">
+        </div>
+    </div>
+    <div class="col col-md-2 d-flex align-items-end">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Primary</button>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col"><input type="checkbox" id="selectAllDark"> #ID</th>
+            <th scope="col" class="text-center">F.I.SH</th>
+            <th scope="col" class="text-center">Manzil</th>
+            <th scope="col" class="text-center">Jo'natuvchi</th>
+            <th scope="col" class="text-center">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for letter in page_obj %}
+        <tr>
+            <td><input type="checkbox" class="selectRowDark"> #{{ letter.id }}</td>
+            <td class="text-center">{{ letter.name }}</td>
+            <td class="text-center">{{ letter.parent.name }}, {{ letter.address }}</td>
+            <td class="text-center">{{ letter.courier.full_name|default:"-" }}</td>
+            <td class="text-center">{{ letter.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<nav aria-label="Custom Page navigation">
+    <ul class="pagination">
+        <li class="page-item {% if pagination_context.current_page == 1 %}disabled{% endif %}">
+            <a class="page-link" href="?page=1">&laquo;</a>
+        </li>
+        {% if pagination_context.start_page > 1 %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1">1</a>
+        </li>
+        <li class="page-item disabled"><span class="page-link">...</span></li>
+        {% endif %}
+
+        {% for i in pagination_context.page_range %}
+        <li class="page-item {% if i == pagination_context.current_page %}active{% endif %}">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+        </li>
+        {% endfor %}
+
+        {% if pagination_context.end_page < pagination_context.num_pages %} <li class="page-item disabled"><span
+                class="page-link">...</span></li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ pagination_context.num_pages }}">{{ pagination_context.num_pages
+                    }}</a>
+            </li>
+            {% endif %}
+
+            <li
+                class="page-item {% if pagination_context.current_page == pagination_context.num_pages %}disabled{% endif %}">
+                <a class="page-link" href="?page={{ pagination_context.num_pages }}">&raquo;</a>
+            </li>
+    </ul>
+</nav>
+
+
+
+<script>
+    // Select/Deselect all checkboxes in the dark table
+    document.getElementById('selectAllDark').addEventListener('change', function () {
+        const checkboxes = document.querySelectorAll('.selectRowDark');
+        checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+    });
+
+    // Select/Deselect all checkboxes in the light table
+    document.getElementById('selectAllLight').addEventListener('change', function () {
+        const checkboxes = document.querySelectorAll('.selectRowLight');
+        checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+    });
+</script>
+
+{% endblock %}

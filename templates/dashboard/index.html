@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tz %}
+
+{% block upload_buttons %}
+
+{% endblock %}
+
+
+{% block content %}
+<div class="main_content_iner overly_inner">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="white_card card_height_100 mb_30">
+                        <div class="white_card_header">
+                            <div class="white_box_tittle list_header mb-0">
+                                <h4>Dashboard</h4>
+                                <div class="d-flex ms">
+                                    <button type="button" class="btn_1 ml-10" data-bs-toggle="modal" data-bs-target="#grid_modal_hisobot"><i class="ti-download me-2"></i>XLSX hisobot</button>
+                                    <a href="{% url 'daily_report' %}" id="daily_report" onclick="dailyReport()" class="btn_1 ml-10" data-bs-toggle="modal" data-bs-target=""><i class="ti-download me-2"></i>Kunlik hisobot</a>
+                                </div>
+                                <div class="box_right d-flex lms_block">
+                                    <div class="serach_field_2">
+                                        <div class="search_inner">
+                                            <form Active="#">
+                                                <div class="search_field">
+                                                    <input type="search" name="search"
+                                                           placeholder="Search content here..."/>
+                                                </div>
+                                                <button type="submit"><i class="ti-search"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="add_button ms-2">
+                                        <a href="{% url 'add_letter' %}" class="btn_1">Yangi xat qo'shish</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="white_card_body">
+                            <div class="QA_section">
+                                <div class="QA_table mb_30">
+                                    <table class="table lms_table_active3">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Manzil</th>
+                                            <th scope="col">F.I.Sh</th>
+                                            <th scope="col">Jo'natuvchi</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for letter in letters %}
+                                            <tr>
+                                                <td>
+                                                    <div class="trade d-flex align-items-center">
+                                                        <span class="ms-3">{{ letter.id }}</span>
+                                                    </div>
+                                                </td>
+                                                <td>{{ letter.address }}</td>
+                                                <td>{{ letter.name }}</td>
+                                                <td>{{ letter.upload_zip_file.organization.name }}</td>
+                                                <td>
+                                                    <a href="#"
+                                                       class="status_btn fs-6 {% if letter.status == 'process' %} yellow_btn {% elif letter.status == 'new' %} pending_btn {% elif letter.status == 'cancel' %} cancel_btn {% endif %}">{{ letter.status }}</a>
+                                                </td>
+                                                <td>
+                                                    <i class="fas fa-eye" data-bs-toggle="modal"
+                                                       data-bs-target="#grid_modal{{ letter.id }}"></i>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for letter in letters %}
+        <div class="modal fade" id="grid_modal{{ letter.id }}" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div id="screen_body">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center fs-6" id="exampleModalLongTitle"><a href="#" class="status_btn fs-6 {% if letter.status == 'process' %} yellow_btn {% elif letter.status == 'new' %} pending_btn {% elif letter.status == 'cancel' %} cancel_btn {% endif %}">{{ letter.status }}</a></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body" id="screen_pic">
+                            <div class="container-fluid" id="screenshot-container">
+                                <div class="row align-items-center">
+                                    <img class="col" src="
+                                            {% if not letter.image %}{% static 'favicon/triumf_express.jpg' %}{% else %}{{ letter.image.url }}{% endif %}"
+                                        alt="">
+                                </div>
+                                <div class="row justify-content-around mt-2 mb-4">
+                                    <div class="col"><i class="ti-time"
+                                                        style="padding-right: 5px;"></i>{{ letter.created_at|time }}</div>
+                                    <div class="col text-end"><i class="ti-calendar"
+                                                                style="padding-right: 5px;"></i>{{ letter.created_at|date }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <p><i class="ti-location-pin me-2"></i>{{ letter.address }}
+                                        </p>
+                                        <p><i class="ti-user me-2"></i>{{ letter.name }}</p>
+                                        <p><i class="fas fa-building me-2"></i>{{ letter.upload_zip_file.organization.name }}</p>
+                                        <p><i class="ti-car me-2"></i>{% if not letter.courier %}
+                                            Kuryer{% else %}{{ letter.courier }}{% endif %}</p>
+                                        <p><i class="ti-clip me-2"></i>№ {{ letter.id }}</p>
+                                        <p><a href="{% if letter.pdf_file %}{{ letter.pdf_file.url }}{% else %}#{% endif %}"><i class="ti-import" style="margin-right: 4px;"></i> File</a></p>
+                                        <p><i class="ti-check-box me-2"></i>{{ letter.status|upper }}</p>
+                                        <p><i class="ti-comment-alt me-2"></i>Sabab:
+                                            {% if not letter.reason %}{% else %}{{ letter.reason }}{% endif %}</p>
+                                        <p class="mt-2">E'tirozlar va da'volar pochta va kuryerlik jo'natmasi topshirilgan kundan e'tiboran olti (6) oy.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="screenbtn">ScreenShot</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="modal fade" id="grid_modal_hisobot" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" id="">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center fs-6" id="">Restor shakillantirish</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="" id="page" role="tabpanel" aria-labelledby="page-tab">
+                                    <div class="builder_select">
+                                        <div class="d-block">
+                                            <div class="col">
+                                                <label class="form-label m-4 text-center" for="#">Resterni shakillantirish uchun sizga kerakli bo'lgan oyni tanlang</label>
+                                                <div class="common_select">
+                                                    <select class="nice_Select wide mb_30 w-100">
+                                                            <option name="month" value="1">Yanvar</option>
+                                                            <option name="month" value="2">Fevral</option>
+                                                            <option name="month" value="3">Mart</option>
+                                                            <option name="month" value="4">Aprel</option>
+                                                            <option name="month" value="5">May</option>
+                                                            <option name="month" value="6">Iyun</option>
+                                                            <option name="month" value="7">Iyul</option>
+                                                            <option name="month" value="8">Avgust</option>
+                                                            <option name="month" value="9">Sentabr</option>
+                                                            <option name="month" value="10">Oktabr</option>
+                                                            <option name="month" value="11">Noyabr</option>
+                                                            <option name="month" value="12">Dekabr</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="hisobot_yuklash" onclick="downloadReport()">Yuklash</button>
+                        <!-- Agar saqlandi degan habar kelsa oyna yopilishi kerak -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="grid_modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="input-group date">
+                                <input type="text" class="form-control" value="12-02-2012">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+const button = document.querySelector("#screenbtn");
+const div = document.querySelector("#screen_body");
+
+button.addEventListener("click", function () {
+
+    html2canvas(div).then((canvas) => {
+        const imageDataURL = canvas.toDataURL("image/png");
+
+        // Create a download link for the image
+        const a = document.createElement("a");
+        a.href = imageDataURL;
+        a.download = "screen.png";
+        a.click();
+    });
+
+});
+
+</script> -->
+
+<script>
+
+    const downloadReport = () => {
+        const month = document.querySelector('.nice_Select').value; // Corrected line
+        console.log(month);
+        const url = `{% url 'report' %}?month=${month}`;
+        window.location.href = url;
+    }
+
+    const dailyReport = () => {
+        const button = document.querySelector("#daily_report");
+        const url = button.href;
+        window.location.href = url;
+    }        
+
+
+</script>
+
+{% endblock %}

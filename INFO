@@ -1,0 +1,96 @@
+[2023-05-20 20:17:14,202: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2023-05-20 20:17:14,410: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2023-05-20 20:17:15,436: WARNING/MainProcess] /var/www/api/venv/lib/python3.10/site-packages/kombu/pidbox.py:70: UserWarning: A node named celery@ict is already using this process mailbox!
+
+Maybe you forgot to shutdown the other node or did not do so properly?
+Or if you meant to start multiple nodes on the same host please make sure
+you give each node a unique node name!
+
+  warnings.warn(W_PIDBOX_IN_USE.format(node=self))
+
+[2023-05-20 20:17:59,830: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2023-05-20 20:18:00,037: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2023-05-20 20:18:01,078: WARNING/MainProcess] /var/www/api/venv/lib/python3.10/site-packages/kombu/pidbox.py:70: UserWarning: A node named celery@ict is already using this process mailbox!
+
+Maybe you forgot to shutdown the other node or did not do so properly?
+Or if you meant to start multiple nodes on the same host please make sure
+you give each node a unique node name!
+
+  warnings.warn(W_PIDBOX_IN_USE.format(node=self))
+
+[2023-05-20 23:53:13,074: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2023-05-20 23:53:13,281: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2023-05-20 23:53:14,300: WARNING/MainProcess] /var/www/api/venv/lib/python3.10/site-packages/kombu/pidbox.py:70: UserWarning: A node named celery@ict is already using this process mailbox!
+
+Maybe you forgot to shutdown the other node or did not do so properly?
+Or if you meant to start multiple nodes on the same host please make sure
+you give each node a unique node name!
+
+  warnings.warn(W_PIDBOX_IN_USE.format(node=self))
+
+[2023-05-21 00:13:55,070: ERROR/ForkPoolWorker-1] Task apps.letter.tasks.createpdf[5292a5f8-11d4-4123-8769-ed1715408456] raised unexpected: OSError()
+Traceback (most recent call last):
+  File "/var/www/api/venv/lib/python3.10/site-packages/celery/app/trace.py", line 451, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/var/www/api/venv/lib/python3.10/site-packages/celery/app/trace.py", line 734, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/var/www/api/apps/letter/tasks.py", line 103, in createpdf
+    df = pd.read_excel(url)
+  File "/var/www/api/venv/lib/python3.10/site-packages/pandas/io/excel/_base.py", line 478, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "/var/www/api/venv/lib/python3.10/site-packages/pandas/io/excel/_base.py", line 1496, in __init__
+    ext = inspect_excel_format(
+  File "/var/www/api/venv/lib/python3.10/site-packages/pandas/io/excel/_base.py", line 1371, in inspect_excel_format
+    with get_handle(
+  File "/var/www/api/venv/lib/python3.10/site-packages/pandas/io/common.py", line 716, in get_handle
+    ioargs = _get_filepath_or_buffer(
+  File "/var/www/api/venv/lib/python3.10/site-packages/pandas/io/common.py", line 368, in _get_filepath_or_buffer
+    with urlopen(req_info) as req:
+  File "/var/www/api/venv/lib/python3.10/site-packages/pandas/io/common.py", line 270, in urlopen
+    return urllib.request.urlopen(*args, **kwargs)
+  File "/usr/lib/python3.10/urllib/request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+  File "/usr/lib/python3.10/urllib/request.py", line 525, in open
+    response = meth(req, response)
+  File "/usr/lib/python3.10/urllib/request.py", line 634, in http_response
+    response = self.parent.error(
+  File "/usr/lib/python3.10/urllib/request.py", line 563, in error
+    return self._call_chain(*args)
+  File "/usr/lib/python3.10/urllib/request.py", line 496, in _call_chain
+    result = func(*args)
+  File "/usr/lib/python3.10/urllib/request.py", line 643, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+OSError
+[2023-05-21 00:14:06,684: WARNING/MainProcess] Exception ignored in atexit callback
+[2023-05-21 00:14:06,685: WARNING/MainProcess] : 
+[2023-05-21 00:14:06,685: WARNING/MainProcess] <function _exit_function at 0x7f458a445510>
+[2023-05-21 00:14:06,685: WARNING/MainProcess] Traceback (most recent call last):
+[2023-05-21 00:14:06,685: WARNING/MainProcess]   File "/usr/lib/python3.10/multiprocessing/util.py", line 334, in _exit_function
+[2023-05-21 00:14:06,693: WARNING/MainProcess]     
+[2023-05-21 00:14:06,694: WARNING/MainProcess] _run_finalizers(0)
+[2023-05-21 00:14:06,694: WARNING/MainProcess]   File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+[2023-05-21 00:14:06,694: WARNING/MainProcess]     
+[2023-05-21 00:14:06,695: WARNING/MainProcess] finalizer()
+[2023-05-21 00:14:06,695: WARNING/MainProcess]   File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+[2023-05-21 00:14:06,695: WARNING/MainProcess]     
+[2023-05-21 00:14:06,695: WARNING/MainProcess] res = self._callback(*self._args, **self._kwargs)
+[2023-05-21 00:14:06,695: WARNING/MainProcess]   File "/var/www/api/venv/lib/python3.10/site-packages/billiard/pool.py", line 1662, in _terminate_pool
+[2023-05-21 00:14:06,696: WARNING/MainProcess]     
+[2023-05-21 00:14:06,697: WARNING/MainProcess] cls._help_stuff_finish(*help_stuff_finish_args)
+[2023-05-21 00:14:06,697: WARNING/MainProcess]   File "/var/www/api/venv/lib/python3.10/site-packages/celery/concurrency/asynpool.py", line 1341, in _help_stuff_finish
+[2023-05-21 00:14:06,698: WARNING/MainProcess]     
+[2023-05-21 00:14:06,698: WARNING/MainProcess] readable, _, again = _select(inqR, timeout=0.5)
+[2023-05-21 00:14:06,698: WARNING/MainProcess]   File "/var/www/api/venv/lib/python3.10/site-packages/celery/concurrency/asynpool.py", line 165, in _select
+[2023-05-21 00:14:06,698: WARNING/MainProcess]     
+[2023-05-21 00:14:06,698: WARNING/MainProcess] return poll(readers, writers, err, timeout)
+[2023-05-21 00:14:06,699: WARNING/MainProcess]   File "/var/www/api/venv/lib/python3.10/site-packages/celery/concurrency/asynpool.py", line 121, in _select_imp
+[2023-05-21 00:14:06,699: WARNING/MainProcess]     
+[2023-05-21 00:14:06,699: WARNING/MainProcess] events = poller.poll(timeout)
+[2023-05-21 00:14:06,699: WARNING/MainProcess]   File "/var/www/api/venv/lib/python3.10/site-packages/celery/apps/worker.py", line 299, in _handle_request
+[2023-05-21 00:14:06,700: WARNING/MainProcess]     
+[2023-05-21 00:14:06,700: WARNING/MainProcess] raise exc(exitcode)
+[2023-05-21 00:14:06,700: WARNING/MainProcess] celery.exceptions
+[2023-05-21 00:14:06,700: WARNING/MainProcess] .
+[2023-05-21 00:14:06,700: WARNING/MainProcess] WorkerTerminate
+[2023-05-21 00:14:06,700: WARNING/MainProcess] : 
+[2023-05-21 00:14:06,700: WARNING/MainProcess] 1
